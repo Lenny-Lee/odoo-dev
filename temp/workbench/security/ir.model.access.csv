@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+workbench_csv_id,workbench,model_workbench,,1,0,0,0
+workbench_shortcut_csv_id,workbench_shortcut,model_workbench_shortcut,,1,0,0,0
+workbench_chart_csv_id,workbench_chart,model_workbench_chart,,1,0,0,0
+
+workbench_csv_id_manager,workbench,model_workbench,wb_manager,1,1,1,0
+workbench_shortcut_csv_id_manager,workbench_shortcut,model_workbench_shortcut,wb_manager,1,1,1,0
+workbench_chart_csv_id_manager,workbench_chart,model_workbench_chart,wb_manager,1,1,1,0
+
+
+
+
+
+

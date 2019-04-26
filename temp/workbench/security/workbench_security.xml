@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <record id="wb_manager" model="res.groups">
+            <field name="name">工作台管理员</field>
+        </record>
+    </data>
+</odoo>

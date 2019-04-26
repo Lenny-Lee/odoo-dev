@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="bench_t">
+		<div  class="row o_kanban_view o_kanban_ungrouped" >
+			<div id="block_id"></div>
+	</div>
+	</t>
+	<t t-name="wb_col">
+		<div t-att-class="style['col']">
+			<div class=" add_record">
+				<t t-raw="0"/>
+					</div>
+		</div>
+	</t>
+    <t t-name="wb_col_wh">
+		<div t-att-class="style['col']">
+			<div class="add_record">
+			<div t-att-style="style['style']">
+				<t t-raw="0"/>
+			</div>
+				</div>
+		</div>
+	</t>
+	<t t-name="shortcut_t">
+		<t t-call="wb_col">
+			<span class="cut_span">
+				<t t-esc="shortcuts['shortcut_name']"/>
+			</span>
+			<ul>
+			<t t-foreach="shortcuts['actions']" t-as="action" >
+				<li t-att-data-index="action_index" class="wo_li"><t t-raw="action.name"/></li>
+			</t>
+			</ul>
+		</t>
+	</t>
+	<t t-name="echart_t">
+		<t t-call="wb_col">
+			<div t-att-id="div_id"  t-att-style="style['style']"></div>
+		</t>
+	</t>
+
+	<t t-name="q_test1">
+		<t t-call="wb_col">
+        <table class="wb-table">
+                    <tbody><tr>
+                        <td class="wb_text">
+                            <div class="wb_hightext">待办</div>
+                            今日
+                        </td>
+                        <td class="wb_text wb_main" title="至日历">
+                            <a  href="#">
+                                <span class="wb_hightext">
+                                        0
+                                </span><br/>
+                                会议
+                            </a>
+                        </td>
+                        <td class="wb_text wb_main" title="至活动">
+                            <a  data-extra="today" href="#" name="crm.crm_lead_action_activities">
+                                <span class="wb_hightext">
+                                        0
+                                </span> <br/>
+                                下一行动
+                            </a>
+                        </td>
+                        <td class="wb_text wb_main" rowspan="2" title="我的漏斗">
+                            <a  href="#" name="crm.action_your_pipeline">
+                                <span class="fa fa-th-large fa-3x"></span><br/>
+                                我的漏斗
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wb_text wb_text">接下来7天</td>
+                        <td class="wb_text wb_main" title="至日历">
+                            <a  href="#" name="calendar.action_calendar_event">
+                                    0
+                            </a>
+                        </td>
+                        <td class="wb_text wb_main" title="至活动">
+                            <a  data-extra="this_week" href="#" name="crm.crm_lead_action_activities">
+                                    0
+                            </a>
+                        </td>
+                    </tr>
+                <tr>
+                        <td class="wb_text">
+                            <div class="wb_hightext">绩效</div>
+                            本月
+                        </td>
+                        <td title="至活动报告" class="wb_text wb_secondary">
+                            <a class="o_dashboard_action" href="#" name="crm.crm_activity_report_action">
+                                <span class="wb_hightext">0 </span> <br/>
+                                活动结束
+                            </a>
+                        </td>
+                        <td title="至商机报告" class="wb_text wb_secondary">
+                            <a class="o_dashboard_action" href="#" name="crm.crm_opportunity_report_action_graph">
+                                <span class="wb_hightext">$1,222.00</span> <br/>
+                                赢取商机
+                            </a>
+                        </td>
+                        <td title="至发票报告" class="wb_text wb_secondary">
+                            <a class="o_dashboard_action" href="#" name="account.action_account_invoice_report_all">
+                                <span class="wb_hightext">$0.00</span> <br/>
+                                已开票
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wb_text">目标</td>
+                        <td class="wb_text wb_secondary">
+                            <span class="o_target_to_set" name="done" title="点击设置">
+                                    点击设置</span>
+                        </td>
+                        <td class="wb_text wb_secondary">
+                            <span class="o_target_to_set" name="won" title="点击设置">
+                                    点击设置</span>
+                        </td>
+                        <td class="wb_text wb_secondary">
+                            <span class="o_target_to_set" name="invoiced" title="点击设置">
+                                    点击设置</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wb_text">上月</td>
+                        <td class="wb_text wb_secondary" title="至活动报告">
+                            <a class="o_dashboard_action" href="#" name="crm.crm_activity_report_action">
+                                0        </a>
+                        </td>
+                        <td class="wb_text wb_secondary" title="至商机报告">
+                            <a class="o_dashboard_action" href="#" name="crm.crm_opportunity_report_action_graph">
+                                $0.00    </a>
+                        </td>
+                        <td class="wb_text wb_secondary" title="至发票报告">
+                            <a class="o_dashboard_action" href="#" name="account.action_account_invoice_report_all">
+                                $0.00    </a>
+                        </td>
+                    </tr>
+                </tbody></table>
+		</t>
+	</t>
+</templates>

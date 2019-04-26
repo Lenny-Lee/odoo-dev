@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="form_wb_shortcut" model="ir.ui.view">
+            <field name="name">form_wb_shortcut</field>
+            <field name="model">workbench.shortcut</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4">
+                        <field name="name" required="1"/>
+                        <field name="bench_id" required="1"/>
+                        <field name="action" required="1"/>
+                        <field name="view_id" required="1"/>
+                        <field name="sequence"/>
+                        <field name="context"/>
+                        <field name="is_active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_wb_shortcut" model="ir.ui.view">
+            <field name="name">tree_wb_shortcut</field>
+            <field name="model">workbench.shortcut</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="bench_id"/>
+                    <field name="action"/>
+                    <field name="sequence"/>
+                    <field name="is_active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_wb_shortcut" model="ir.actions.act_window">
+            <field name="name">快捷动作</field>
+            <field name="res_model">workbench.shortcut</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

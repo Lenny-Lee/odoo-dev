@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="dm_ck_qweb">
+		<t t-call="wb_col">
+      <div id="dmckfilterbar">
+          <div style="margin:10px;height:30px">
+              <div style="width:300px;float:left">
+            <label>筛选时间</label>
+            <select style="display:inline-block;width:50%" v-model="d_val">
+                <option v-for="d in d_data" t-att="[':value', 'd[0]']">{{ d[1] }}</option>
+            </select>
+                  </div>
+                  <div style="width:300px;float:left">
+            <label>出入库公司</label>
+            <select style="display:inline-block;width:70%" v-model="c_val">
+                <option v-for="c in c_data" t-att="[':value', 'c[0]']">{{ c[1] }}</option>
+            </select>
+                  </div>
+          </div>
+          		<div style="width:280px;height:300px;float:left;margin:10px;border:1px solid;">
+                    <div style="width:100%;height:30px;line-height:30px;float:left;background-color: #428bca;text-align:center;border:1px solid;color:white;">出库配件</div>
+                    <div style="margin-top:30px;padding:10px;">
+                      <li style="display:block">出库数量:{{ out_data['sl'] }}</li>
+                      <li style="display:block">出库成本价(含税):{{ out_data['cbj'] }}元</li>
+                      <li style="display:block">出库价:{{ out_data['sj'] }}元</li>
+                    </div>
+                  </div>
+	    <div style="width:280px;height:300px;float:left;margin:10px;border:1px solid;">
+                    <div style="width:100%;height:30px;line-height:30px;float:left;background-color: #5cb85c;text-align:center;border:1px solid;color:white;">入库配件</div>
+                    <div style="margin-top:30px;padding:10px;">
+                      <li style="display:block">入库数量:{{ in_data['sl']}}</li>
+                      <li style="display:block">入库成本价(含税):{{in_data['sj']}}元</li>
+                      <li style="display:block">入库成本价(不含税):{{in_data['cbj']}}元</li>
+                    </div>
+                  </div>
+</div>
+<t t-set="foo" t-value="42"/>
+<t t-js="ctx">
+    window.ctx_dm_ck_datas=ctx.datas
+</t>
+            <script>
+	var dm_ck_filterbar = new Vue({
+		el: '#dmckfilterbar',
+        methods:{
+		    ck_fetch_datas:function(){
+                $.ajax({
+                type: 'post',
+                url: "/dm_ck_filterbar",
+                dataType: "json",
+                data: {d_pram: this.d_val,c_pram: this.c_val},
+                success: function (datas) {
+                    dm_ck_filterbar.out_data=datas.out_data;
+                    dm_ck_filterbar.in_data=datas.in_data;
+                        }
+                    })
+		        }
+		},
+		data: {
+            d_data:window.ctx_dm_ck_datas['d_data'],
+            c_data:window.ctx_dm_ck_datas['c_data'],
+            out_data:window.ctx_dm_ck_datas['out_data'],
+			in_data:window.ctx_dm_ck_datas['in_data'],
+            d_val:2,
+            c_val:window.ctx_dm_ck_datas['c_data_default'],
+		}
+	});
+    dm_ck_filterbar.$watch('d_val', function (d_val) {
+        this.ck_fetch_datas()
+    }),
+    dm_ck_filterbar.$watch('c_val', function (c_val) {
+        this.ck_fetch_datas()
+    })
+	</script>
+		</t>
+	</t>
+</templates>

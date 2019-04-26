@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="dm_xm_qweb">
+		<t t-call="wb_col">
+      <div id="dmxmfilterbar">
+          <div style="margin:10px;height:30px">
+              <div style="width:250px;float:left">
+            <label>筛选时间</label>
+            <select style="display:inline-block;width:50%" v-model="d_val">
+                <option v-for="d in d_data" t-att="[':value', 'd[0]']">{{ d[1] }}</option>
+            </select>
+                  </div>
+              <div style="width:250px;float:left">
+            <label>接待人员</label>
+                  <select style="display:inline-block;width:50%" v-model="j_val">
+                <option v-for="j in j_data" t-att="[':value', 'j[0]']">{{ j[1] }}</option>
+            </select>
+                  </div>
+                  <div style="width:250px;float:left">
+            <label>所属公司</label>
+            <select style="display:inline-block;width:70%" v-model="c_val">
+                <option v-for="c in c_data" t-att="[':value', 'c[0]']">{{ c[1] }}</option>
+            </select>
+                  </div>
+          </div>
+          		<div style="width:280px;height:290px;float:left;margin:10px;border:1px solid;">
+                    <div style="width:100%;height:30px;line-height:30px;float:left;background-color: #428bca;text-align:center;border:1px solid;color:white;">在厂车辆</div>
+                    <div style="margin-top:30px;padding:10px;">
+                      <li style="display:block">已接车数量:{{ car_data['yjc'] }}台</li>
+                      <li style="display:block">已收银数量:{{ car_data['ysy'] }}台</li>
+                      <li style="display:block">施工中数量:{{ car_data['sgz'] }}台</li>
+                    </div>
+                  </div>
+	    <div style="width:280px;height:290px;float:left;margin:10px;border:1px solid;">
+                    <div style="width:100%;height:30px;line-height:30px;float:left;background-color: #5cb85c;text-align:center;border:1px solid;color:white;">洗美产值</div>
+                    <div style="margin-top:30px;padding:10px;">
+                      <li style="display:block">洗美无卡消费:{{profit_data['wk'] }}元</li>
+                      <li style="display:block">优惠套餐产值:{{profit_data['tc']}}元</li>
+                      <li style="display:block">洗美优惠额度:{{profit_data['yh']}}元</li>
+                    </div>
+                  </div>
+	    <div style="width:280px;height:290px;float:left;margin:10px;border:1px solid;">
+                    <div style="width:100%;height:30px;line-height:30px;float:left;background-color: #5bc0de;text-align:center;border:1px solid;color:white;">预约车辆</div>
+                    <div style="margin-top:30px;padding:10px;">
+                      <li style="display:block">预约人数:{{reserve_data['yy']}}台</li>
+                      <li style="display:block">预约到店:{{reserve_data['dd']}}台</li>
+                      <li style="display:block">预约取消:{{reserve_data['qx']}}台</li>
+                    </div>
+                  </div>
+</div>
+<t t-set="foo" t-value="42"/>
+<t t-js="ctx">
+    window.ctx_dm_xm_datas=ctx.datas,
+    console.log(window.ctx_dm_xm_datas['d_data'])
+
+</t>
+            <script>
+	var dm_xm_filterbar = new Vue({
+		el: '#dmxmfilterbar',
+        methods:{
+		    wx_fetch_datas:function(){
+                $.ajax({
+                type: 'post',
+                url: "/dm_xm_filterbar",
+                dataType: "json",
+                data: {d_pram: this.d_val,j_pram: this.j_val,c_pram: this.c_val},
+                success: function (datas) {
+                    dm_xm_filterbar.car_data=datas.car_data;
+                    dm_xm_filterbar.profit_data=datas.profit_data;
+                    dm_xm_filterbar.reserve_data=datas.reserve_data;
+                        }
+                    })
+		        }
+		},
+		data: {
+            d_data:window.ctx_dm_xm_datas['d_data'],
+            j_data:window.ctx_dm_xm_datas['j_data'],
+            c_data:window.ctx_dm_xm_datas['c_data'],
+            car_data:window.ctx_dm_xm_datas['car_data'],
+			profit_data:window.ctx_dm_xm_datas['profit_data'],
+			reserve_data:window.ctx_dm_xm_datas['reserve_data'],
+            d_val:2,
+            j_val:0,
+            c_val:window.ctx_dm_xm_datas['c_data_default'],
+		}
+	});
+    dm_xm_filterbar.$watch('d_val', function (d_val) {
+        this.wx_fetch_datas()
+    })
+    dm_xm_filterbar.$watch('j_val', function (j_val) {
+        this.wx_fetch_datas()
+    })
+    dm_xm_filterbar.$watch('c_val', function (c_val) {
+        this.wx_fetch_datas()
+    })
+	</script>
+		</t>
+	</t>
+</templates>

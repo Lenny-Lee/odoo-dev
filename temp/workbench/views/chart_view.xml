@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="form_wb_chart" model="ir.ui.view">
+            <field name="name">form_wb_chart</field>
+            <field name="model">workbench.chart</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                            <group col="4" string="参数及大小">
+                                <field name="name" required="1"/>
+                                <field name="bench_id" required="1"/>
+                                <field name="type" required="1"/>
+                                <field name="col" required="1"/>
+                                <field name="width" required="1"/>
+                                <field name="height" required="1"/>
+                                <field name="sequence"/>
+                                <field name="is_active"/>
+                            </group>
+                            <group col="4" string="图表配置" attrs="{'invisible':[('type','==', 'qweb')]}">
+                                 <field name="title" attrs="{'required': [('type','==','echart3')]}"/>
+                                <field name="subtitle" attrs="{'required': [('type','==','echart3')]}"/>
+                                <field name="t_position" attrs="{'required': [('type','==','echart3')]}"/>
+                                <field name="model" required="1"/>
+                                <field name="func" attrs="{'required': [('type','==','echart3')]}"/>
+                            </group>
+                            <group col="4" string="qweb配置" attrs="{'invisible':[('type','==', 'echart3')]}">
+                                <field name="t_model" attrs="{'required': [('type','==','qweb')]}"/>
+                                <field name="t_name" attrs="{'required': [('type','==','qweb')]}"/>
+                                <field name="t_func" attrs="{'required': [('type','==','qweb')]}"/>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_wb_chart" model="ir.ui.view">
+            <field name="name">tree_wb_chart</field>
+            <field name="model">workbench.chart</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="bench_id"/>
+                    <field name="title"/>
+                    <field name="sequence"/>
+                    <field name="is_active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_wb_chart" model="ir.actions.act_window">
+            <field name="name">图表</field>
+            <field name="res_model">workbench.chart</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

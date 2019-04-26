@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="workbench" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" charset="utf8"
+                        src="/workbench/static/src/js/vue.js"/>
+                <script type="text/javascript" charset="utf8"
+                        src="/workbench/static/src/js/echarts.common.min.js"/>
+                <script type="text/javascript" charset="utf8"
+                        src="/workbench/static/src/js/workbench.js"/>
+                <link href="/workbench/static//src/css/workbench.css" rel="stylesheet"/>
+            </xpath>
+        </template>
+        <record id="form_wb_workbench" model="ir.ui.view">
+            <field name="name">form_wb_workbench</field>
+            <field name="model">workbench</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <field name="name" required="1"/>
+                        </group>
+                        <notebook>
+                            <page String="快捷动作">
+                                <group>
+                                    <field name="shortcut_name" required="1"/>
+                                    <field name="shortcut_seq" required="1"/>
+                                    <field name="shortcut_col" required="1"/>
+                                    <field name="shortcut_ids" widget="one2many_list"/>
+                                </group>
+                            </page>
+                            <page String="图表">
+                                <field name="chart_ids" widget="one2many_list">
+                                    <tree editable="bottom" create="false" widget="many2many_tags">
+                                        <field name="name"/>
+                                        <field name="title"/>
+                                        <field name="sequence"/>
+                                        <field name="is_active"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_wb_workbench" model="ir.ui.view">
+            <field name="name">tree_wb_workbench</field>
+            <field name="model">workbench</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_wb_workbench" model="ir.actions.act_window">
+            <field name="name">工作台</field>
+            <field name="res_model">workbench</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_bench_wx" model="ir.actions.client">
+            <field name="name">工作台</field>
+            <field name="tag">workbench.bench_tag</field>
+            <field name="params" eval="{'bench_id': 1}"/>
+        </record>
+        <menuitem id="workbench" name="工作台" sequence="11"/>
+        <menuitem id="workbench_set" name="设置" parent="workbench" sequence="1" groups="wb_manager"/>
+        <menuitem id="wb_workbench" name="工作台设置" sequence="1" parent="workbench_set" action="action_wb_workbench"/>
+        <menuitem id="wb_shortcut" name="快捷动作设置" sequence="2" parent="workbench_set" action="action_wb_shortcut"/>
+        <menuitem id="wb_chart" name="图表设置" sequence="3" parent="workbench_set" action="action_wb_chart"/>
+        <menuitem id="wb_tag11" name="测试工作台" sequence="9" parent="workbench" action="action_bench_wx"
+                  groups="wb_manager"/>
+    </data>
+</odoo>
